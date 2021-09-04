@@ -1,0 +1,27 @@
+{% extends 'base_layout.html' %} {% block content %}
+
+<div id="vue-app">
+    <div class="order">
+        <template v-if="businessOpen">
+            <div class="alert alert-secondary" role="alert">
+                    Current Order: ${queue}
+            </div>
+            <h1>Place your order</h1>
+            <form class="site-form" action="{% url 'food:order' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Order">
+            </form>
+        </template>
+
+        <template v-else-if="businessOpen===false">
+            business close now
+        </template>
+
+    </div>
+</div>
+
+{% load static from staticfiles %}
+<script src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}

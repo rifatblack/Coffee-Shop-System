@@ -1,0 +1,89 @@
+nav li{
+    display: inline-block;
+    list-style-type: none;
+    margin-left: 20px;
+}
+
+header{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 20px 0;
+}
+
+nav{
+    justify-self: end;
+}
+
+h1, h2, h3, h4, h5{
+    font-weight: normal;
+    margin: 0;
+}
+
+.site-form {
+    margin-top: 60px;
+    border: 1px solid #6f4e37;
+    padding: 20px;
+}
+
+.site-form input, .site-form textarea{
+    display: block;
+    margin: 20px 0 0px 0;
+    padding: 10px;
+}
+
+.errorlist li{
+    padding: 10px;
+    list-style-type: none;
+    border: 1px solid #FF5722;
+    margin: 10px 0;
+    color: #FF5722
+}
+
+.errorlist{
+    padding: 0;
+}
+
+.site-form input[type="submit"]{
+    background: #6f4e37;
+    border: 0;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.wrapper{
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.businessOpen #business_status h2{
+    background: green;
+    display: inline-block;
+    padding: 10px 0;
+    margin: 0 auto;
+}
+
+#business_status h2{
+    background: red;
+    display: inline-block;
+    padding: 10px 0;
+    margin: 0 auto;
+    color: white;
+}
+
+.helptext, .helptext ul{
+    margin: 0 auto 20px;
+    color: #bbb;
+    font-size: 14px;
+    display: block;
+}
+
+.order-done #order-detail{
+    opacity: 0.4;
+}
+
+button:disabled{
+    cursor: not-allowed;
+}
+

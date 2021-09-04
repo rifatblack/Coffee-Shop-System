@@ -1,0 +1,32 @@
+{% extends 'base_layout.html' %} {% block content %}
+
+<div id="vue-app">
+    <div class="order-success">
+        <template v-if="orderReady">
+            <div class="alert alert-success" role="alert">
+                Your drink is ready to pick up!
+            </div>
+        </template>
+        <template v-else>
+            <div class="alert alert-secondary" role="alert">
+                Order is in process. Process List: ${queue}
+            </div>
+        </template>
+        <h4>Order summary:</h4>
+        <ul>
+            <li>Order ID: {{ order_data.id }}</li>
+            <li>Name: {{ order_data.name }}</li>
+            <li>Order: {{ order_data.coffee_order }}</li>
+            <li>Your order placed at: ${orderTime}</li>
+        </ul>
+
+        <br/>
+        <br/>
+        <p>Please don't refresh the page</p>
+    </div>
+</div>
+
+{% load static from staticfiles %}
+<script src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}

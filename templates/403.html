@@ -1,0 +1,6 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+    <h2>Sorry, you don't have the permissions to view this page.</h2>
+    <a class="btn btn-primary" href="{% url 'food:home' %}" role="button">Return to Home</a>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+
+
+    <script src="{% static 'js/vue_prod.min.js' %}"></script>
+
+
+    <script src="{% static 'js/vue-resource.min.js' %}"></script>
+
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    <title>Coffee Master</title>
+
+
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+
+</head>
+
+<body>
+    <header class="wrapper">
+        <h1>
+            <a href="{% url 'food:home' %}"><img src="{% static 'logo.jpg' %}" alt="#" /></a>
+        </h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                <li>Hi, {{ request.user.username }}</li>
+                <li>
+                    <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                </li>
+
+                {% if perms.food.can_order %}
+                <li><a href="{% url 'food:order' %}" class="highlight">Order Drinks</a></li>
+                {% endif %} {% if perms.food.can_serve %}
+                <li><a href="{% url 'food:prepare' %}" class="highlight">Manage Orders</a></li>
+                {% endif %} {% else %}
+                <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:signup' %}">Signup</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="wrapper">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+
+</html>

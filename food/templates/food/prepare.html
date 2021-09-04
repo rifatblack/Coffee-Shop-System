@@ -1,0 +1,94 @@
+{% extends 'base_layout.html' %} {% block content %}
+<h1>Admin User</h1>
+<div id="vue-app">
+    <template v-if="businessOpen===''">
+            Loading&#8230;
+    </template>
+
+    <template v-else>
+        <div v-bind:class="{businessOpen: businessOpen}">
+            <div id="business_status">
+                <h2>Business status: {{ business_status }}</h2>
+            </div>
+        </div>
+    </template>
+
+    <div>
+        <form action="{% url 'food:prepare' %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-success" type="submit" value="open" name="business_status">Open</button>
+            <button class="btn btn-danger" type="submit" value="close" name="business_status">Close</button>
+        </form>
+    </div>
+
+    <br/>
+    <br/>
+
+    <h3>prepare the drink</h3>
+    <div class="container">
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Order</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="order in orders" v-bind:class="{ 'order-done':order.done }">
+                        <th scope="row" id="order-detail">${order.id}</th>
+                        <td id="order-detail">${order.name}</td>
+                        <td id="order-detail">${order.coffee_order}</td>
+                        <td>
+                            <button class="btn btn-info" v-on:click="getOrder(order.id)" :disabled="order.done">Edit</button>
+                            <button class="btn btn-success" v-on:click="doneOrder(order.id)" :disabled="order.done">Done</button>
+                            <button class="btn btn-danger" v-on:click="deleteOrder(order.id)" :disabled="!order.done">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">EDIT ORDER</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                        </div>
+                        <form v-on:submit.prevent="updateOrder()">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="name">Customer Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter Your Name" v-model="currentOrder.name" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <label for="coffee_order">Coffee Order</label>
+                                    <textarea class="form-control" id="coffee_order" placeholder="Place Your Order" v-model="currentOrder.coffee_order" required="required" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary m-progress" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="loading" v-if="loading===true">Loading&#8230;</div>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="loading" v-if="loading===true">Loading&#8230;</div>
+</div>
+
+{% load static from staticfiles %}
+<script src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}

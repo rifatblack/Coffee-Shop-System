@@ -1,0 +1,13 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+
+<h3>Business status now:</h3>
+<div>
+    <h4 id="business_status">{{ business_status }}</h4>
+</div>
+
+{% load static from staticfiles %}
+<script src="{% static 'js/app.js' %}"></script>
+
+{% endblock %}

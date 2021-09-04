@@ -1,0 +1,8 @@
+{% extends 'base_layout.html' %} {% block content %}
+<h1>Welcome to our Coffee Shop System</h1>
+<div>
+    {% load static from staticfiles %}
+    <img src="{% static 'coffee_menu.jpg' %}" alt="#" />
+</div>
+
+<a href="{% url 'food:order' %}">Ready to order?</a> {% endblock %}
